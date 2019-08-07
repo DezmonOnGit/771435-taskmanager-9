@@ -1,28 +1,8 @@
-document.addEventListener("DOMContentLoaded", function() { 
+document.addEventListener(`DOMContentLoaded`, function (){ 
+	`use strict`;
 
-	var main = document.querySelector('.main');
-	var control = document.querySelector('.control');
-	var board = createNode('section', ['board', 'container']);
-	var boardTaskBox = createNode('div', ['board__tasks']);
-
-	renderTemplate(control, templateMenu());
-	renderTemplate(main, templateSearch());
-	renderTemplate(main, templateFilter());
-	main.append(board);
-
-	renderTemplate(board, templateBoardFilter());
-	board.append(boardTaskBox);
-
-	renderTemplate(boardTaskBox, templateCardEdit());
-	renderTemplate(boardTaskBox, templateCard());
-	renderTemplate(boardTaskBox, templateCard());
-	renderTemplate(boardTaskBox, templateCard());
-
-	renderTemplate(board, templateBtnLoadMore());
-
-
-	/*------------------ FUNCTIONS BEGIN ------------------*/
-	function templateMenu() {
+	/* ------------------ FUNCTIONS BEGIN ------------------ */
+	const getMenuTemplate = () => {
 		return `<section class="control__btn-wrap">
 					<input
 						type="radio"
@@ -54,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function() {
         		</section>`;
 	}
 
-	function templateSearch() {
+	const getSearchTemplate = () => {
 		return `<section class="main__search search container">
 					<input
 						type="text"
@@ -66,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		      </section>`;
 	}
 
-	function templateFilter() {
+	const getFilterTemplate = () => {
 		return `<section class="main__filter filter container">
 					<input
 						type="radio"
@@ -136,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		      </section>`;
 	}
 
-	function templateBoardFilter() {
+	const getBoardFilterTemplate = () => {
 		return `<div class="board__filter-list">
 		          <a href="#" class="board__filter">SORT BY DEFAULT</a>
 		          <a href="#" class="board__filter">SORT BY DATE up</a>
@@ -144,7 +124,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		        </div>`;
 	}
 
-	function templateCard() {
+	const getCardTemplate = () => {
 		return `<article class="card card--black">
 					<div class="card__form">
 						<div class="card__inner">
@@ -209,7 +189,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		        </article>`;
 	}
 
-	function templateCardEdit() {
+	const getCardEditTemplate = () => {
 		return `<article class="card card--edit card--black">
 		            <form class="card__form" method="get">
 		              <div class="card__inner">
@@ -433,23 +413,44 @@ document.addEventListener("DOMContentLoaded", function() {
 		        </article>`;
 	}
 
-	function templateBtnLoadMore() {
+	const getBtnLoadMoreTemplate = () => {
 		return `<button class="load-more" type="button">load more</button>`;
 	}
 
-	function renderTemplate(wrapper, template) {
-		wrapper.innerHTML +=  template;
+	const renderTemplate = (wrapper, template) => {
+		wrapper.innerHTML += template;
 	}
 
-	function createNode(tag, classes) {
-		var node = document.createElement(tag);
+	const createNode = (tag, classes) => {
+		let node = document.createElement(tag);
 
-		for(let i = 0; i<=classes.length - 1; i++) {
+		for (let i = 0; i <= classes.length - 1; i++) {
 			node.classList.add(classes[i]);
 		}
 
 		return node;
 	}
 
-	/*------------------ FUNCTIONS END ------------------*/
+	/* ------------------ FUNCTIONS END ------------------ */
+
+	const main = document.querySelector(`.main`);
+	const control = document.querySelector(`.control`);
+	const board = createNode(`section`, [`board`, `container`]);
+	const boardTaskBox = createNode(`div`, [`board__tasks`]);
+
+	renderTemplate(control, getMenuTemplate());
+	renderTemplate(main, getSearchTemplate());
+	renderTemplate(main, getFilterTemplate());
+	main.append(board);
+
+	renderTemplate(board, getBoardFilterTemplate());
+	board.append(boardTaskBox);
+
+	renderTemplate(boardTaskBox, getCardEditTemplate());
+	renderTemplate(boardTaskBox, getCardTemplate());
+	renderTemplate(boardTaskBox, getCardTemplate());
+	renderTemplate(boardTaskBox, getCardTemplate());
+
+	renderTemplate(board, getBtnLoadMoreTemplate());
+
 });
